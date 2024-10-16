@@ -2,3 +2,4 @@
 test.py
 .idea/
 */__pycache__/
+results/

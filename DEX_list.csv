@@ -1,0 +1,81 @@
+dex,info1,info2,link,note
+Uniswap v2,Ethereum,0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f,,getPair 함수 사용
+,Arbitrum,0xf1D7CC64Fb4452F05c498126312eBE29f30Fbcf9,,getPair 함수 사용
+,Avalanche,0x9e5A52f57b3038F1B8EeE45F28b3C1967e22799C,,getPair 함수 사용
+,BNB Chain,0x8909Dc15e40173Ff4699343b6eB8132c65e18eC6,,getPair 함수 사용
+,Base,0x8909Dc15e40173Ff4699343b6eB8132c65e18eC6,,getPair 함수 사용
+,Optimism,0x0c3c1c532F1e39EdF36BE9Fe0bE1410313E074Bf,,getPair 함수 사용
+,Polygon,0x9e5A52f57b3038F1B8EeE45F28b3C1967e22799C,,getPair 함수 사용
+,Blast,0x5C346464d33F90bABaf70dB6388507CC889C1070,,getPair 함수 사용
+,Zora,0x0F797dC7efaEA995bB916f268D919d0a1950eE3C,,getPair 함수 사용
+Uniswap v3,Ethereum,0x1f98431c8ad98523631ae4a59f267346ea31f984,,getPool 함수 사용
+,Avax,0x740b1c1de25031C31FF4fC9A62f554A55cdC1baD,,getPool 함수 사용
+,Arbitrum,0x1F98431c8aD98523631AE4a59f267346ea31F984,,getPool 함수 사용
+,BNB Chain,0xdB1d10011AD0Ff90774D0C6Bb92e5C5c8b4461F7,,getPool 함수 사용
+,Base,0x33128a8fC17869897dcE68Ed026d694621f6FDfD,,getPool 함수 사용
+,Blast,0x792edAdE80af5fC680d96a2eD80A44247D2Cf6Fd,,getPool 함수 사용
+,Celo,0xAfE208a311B21f13EF87E33A90049fC17A7acDEc,,getPool 함수 사용
+,Optimism,0x1F98431c8aD98523631AE4a59f267346ea31F984,,getPool 함수 사용
+,Polygon,0x1F98431c8aD98523631AE4a59f267346ea31F984,,getPool 함수 사용
+,zkSync,0x8FdA5a7a8dCA67BBcDd10F02Fa0649A937215422,,getPool 함수 사용
+,Zora,0x7145F8aeef1f6510E92164038E1B6F8cB2c42Cbb,,getPool 함수 사용
+Curve,All,,https://curve.readthedocs.io/ref-addresses.html,pool 주소 목록
+SushiSwap,All,,https://docs.sushi.com/docs/Developers/Deployment%20Addresses,getVault 함수 사용
+Balancer,Arbitrum,,https://docs.balancer.fi/reference/contracts/deployment-addresses/arbitrum.html,getVault 함수 사용
+,Avalanche,,https://docs.balancer.fi/reference/contracts/deployment-addresses/avalanche.html,getVault 함수 사용
+,Base,,https://docs.balancer.fi/reference/contracts/deployment-addresses/base.html,getVault 함수 사용
+,Ethereum,,https://docs.balancer.fi/reference/contracts/deployment-addresses/mainnet.html,getVault 함수 사용
+,Fraxtal,,https://docs.balancer.fi/reference/contracts/deployment-addresses/fraxtal.html,getVault 함수 사용
+,Gnosis,,https://docs.balancer.fi/reference/contracts/deployment-addresses/gnosis.html,getVault 함수 사용
+,Mode,,https://docs.balancer.fi/reference/contracts/deployment-addresses/mode.html,getVault 함수 사용
+,Optimism,,https://docs.balancer.fi/reference/contracts/deployment-addresses/optimism.html,getVault 함수 사용
+,Polygon,,https://docs.balancer.fi/reference/contracts/deployment-addresses/polygon.html,getVault 함수 사용
+,Zkevm,,https://docs.balancer.fi/reference/contracts/deployment-addresses/zkevm.html,getVault 함수 사용
+Bancor,All,0xeEF417e1D5CC832e619ae18D2F140De2999dD4fB,https://docs.bancor.network/developer-guides/contracts,Vault 주소 사용
+PancakeSwap V2,BSC,0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73,,factory
+,ETH,0x1097053Fd2ea711dad45caCcc45EfF7548fCB362,,factory
+,zkEVM,0x02a84c1b3BBD7401a5f7fa98a384EBC70bB5749E,,factory
+,zkSync,0xd03D8D566183F0086d8D09A84E1e30b58Dd5619d,,factory
+,Arbitrum,0x02a84c1b3BBD7401a5f7fa98a384EBC70bB5749E,,factory
+,Linea,0x02a84c1b3BBD7401a5f7fa98a384EBC70bB5749E,,factory
+,Base,0x02a84c1b3BBD7401a5f7fa98a384EBC70bB5749E,,factory
+,opBNB,0x02a84c1b3BBD7401a5f7fa98a384EBC70bB5749E,,factory
+PancakeSwap V3,Almost,0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865,,factory
+,zkSync,0x1BB72E0CbbEA93c08f535fc7856E0338D7F7a8aB,,factory
+ThorChain,All,0x3155BA85D5F96b2d030a4966AF206230e46849cb,,old rune
+DeGate,All,0x54D7aE423Edb07282645e740C046B9373970a168,https://docs.degate.com/what-is-degate/deployment-address,DepositContractProxy
+Loopring Exchange,All,,https://docs-protocol.loopring.io/resources/smart-contracts,deposit contract
+ShibaSwap,ETH,0x115934131916C8b277DD010Ee02de363c09d037c,https://tradingstrategy.ai/trading-view/ethereum/shiba-swap,factory
+DeFi Swap,ETH,0x9DEB29c9a4c7A88a3C0257393b7f3335338D9A9D,https://tradingstrategy.ai/trading-view/ethereum/crypto-com-defi-swap,factory
+Orion,ETH,0x5FA0060FcfEa35B31F7A5f6025F0fF399b98Edf1,https://tradingstrategy.ai/trading-view/ethereum/orion-protocol,factory
+Solidly V3,ETH,0x70Fe4a44EA505cFa3A57b95cF2862D4fd5F0f687,https://docs.solidly.com/resources/contract-addresses,factory (getPool)
+Frax Swap,Arbitrum,0x8374A74A728f06bEa6B7259C68AA7BBB732bfeaD,,factory
+,Avalanche,0xf77ca9B635898980fb219b4F4605C50e4ba58afF,,factory
+,BSC,0xf89e6CA06121B6d4370f4B196Ae458e8b969A011,,factory
+,ETH,0x43eC799eAdd63848443E2347C49f5f52e8Fe0F6f,,factory
+,Fantom,0xDc745E09fC459aDC295E2e7baACe881354dB7F64,,factory
+,Fraxtal,0xE30521fe7f3bEB6Ad556887b50739d6C7CA667E6,,factory
+,Moonbeam,0x51f9DBEd76f5Dcf209817f641b549aa82F35D23F,,factory
+,Moonriver,0x7FB05Ca29DAc7F5690E9b5AE0aF0415D579D7CD3,,factory
+,Optimism,0x67a1412d2D6CbF211bb71F8e851b4393b491B10f,,factory
+,Polygon,0x54F454D747e037Da288dB568D4121117EAb34e79,,factory
+EtherVista,ETH,0x9a27cb5ae0B2cEe0bb71f9A85C0D60f3920757B4,,factory
+SmarDex,ETH,0xB878DC600550367e14220d4916Ff678fB284214F,,factory
+,Polygon,0x9A1e1681f6D59Ca051776410465AfAda6384398f,,factory
+,Arbitrum,0x41A00e3FbE7F479A99bA6822704d9c5dEB611F22,,factory
+,BSC,0xA8EF6FEa013034E62E2C4A9Ec1CDb059fE23Af33,,factory
+,Base,0xdd4536dD9636564D891c919416880a3e250f975A,,factory
+,Solana,9dzSzFvPsKDoY2gdWErsuz2H1o4tbzvgBhrNZ9cvkD2j,,contract address
+DODO,ALL,,https://api.dodoex.io/dodo-contract/list,all contract addresses
+Verse,ETH,0x16bc2B187D7C7255b647830C05a6283f2B9A3AF8,,factory
+Maverick Protocol V1,ETH,0xEb6625D65a0553c9dBc64449e56abFe519bd9c9B,,factory
+,zkSync,0x2C1a605f843A2E18b7d7772f0Ce23c236acCF7f5,,factory
+,BSC,0x76311728FF86054Ad4Ac52D2E9Ca005BC702f589,,factory
+,Base,0xB2855783a346735e4AAe0c1eb894DEf861Fa9b45,,factory
+Maverick Protocol V2,Arbitrum,0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e,,factory
+,Base,0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e,,factory
+,BSC,0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e,,factory
+,ETH,0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e,,factory
+,Scroll,0x0A7e848Aca42d879EF06507Fca0E7b33A0a63c1e,,factory
+,zkSync,0x7A6902af768a06bdfAb4F076552036bf68D1dc56,,factory
+MOODAR,ETH,0x1e895bFe59E3A5103e8B7dA3897d1F2391476f3c,,factory

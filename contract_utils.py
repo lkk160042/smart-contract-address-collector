@@ -151,11 +151,11 @@ class Contract:
         for i in range(pairs_length):
             results = await processor.add_task(self.get_pair_by_index, contract_functions, i)
             if results:
-                self.result_df._append(self.to_dataframe(results), ignore_index=True)
+                self.result_df = self.result_df._append(self.to_dataframe(results), ignore_index=True)
                 print(f"{len(results)} done")
         final_results = await processor.process_tasks()
         if final_results:
-            self.result_df._append(self.to_dataframe(final_results), ignore_index=True)
+            self.result_df = self.result_df._append(self.to_dataframe(final_results), ignore_index=True)
 
     @staticmethod
     def to_dataframe(results):

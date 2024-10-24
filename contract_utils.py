@@ -133,7 +133,8 @@ class Contract:
             self, factory_address: str,
             token0: str,
             token1: str,
-            fee_list: List[int] = None
+            fee_list: List[int] = None,
+            filter_none: bool = False,
     ):
         if not fee_list:
             fee_list = [100, 300, 500, 1000]
@@ -141,8 +142,9 @@ class Contract:
         contract_functions = ETHContractFunctions(self.w3, factory_address, abi=self._get_abi('pool_factory'))
 
         pool_addresses = await asyncio.gather(*[contract_functions.getPool(token0, token1, fee) for fee in fee_list])
+
         return {fee: pool_address for fee, pool_address in zip(fee_list, pool_addresses)
-                if pool_address != "0x0000000000000000000000000000000000000000"}
+                if not filter_none or pool_address != "0x0000000000000000000000000000000000000000"}
 
     def get_token_info(self, *args, **kwargs) -> str:
         return asyncio.run(self.async_get_token_info(*args, **kwargs))

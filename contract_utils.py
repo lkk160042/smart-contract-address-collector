@@ -164,12 +164,16 @@ class Contract:
             "token1_name": token1,
         }
 
+    def get_pair_length(self, factory_address: str):
+        contract_functions = ETHContractFunctions(self.w3, factory_address, abi=self._get_abi('pair_factory'))
+        return asyncio.run(contract_functions.allPairsLength())
+
     def get_pairs(self, *args, **kwargs):
         return asyncio.run(self.async_get_pairs(*args, **kwargs))
 
-    async def async_get_pairs(self, pair_factory_address: str = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", limit=5):
+    async def async_get_pairs(self, factory_address: str = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", limit=5):
         processor = AsyncBatchProcessor(limit=limit)
-        contract_functions = ETHContractFunctions(self.w3, pair_factory_address, abi=self._get_abi('pair_factory'))
+        contract_functions = ETHContractFunctions(self.w3, factory_address, abi=self._get_abi('pair_factory'))
         pairs_length = await contract_functions.allPairsLength()
         for i in range(pairs_length):
             results = await processor.add_task(self.async_get_pair_by_index, contract_functions, i)

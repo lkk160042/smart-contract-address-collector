@@ -60,8 +60,8 @@ class Contract:
 
     @staticmethod
     def _get_abi(contract_type: str) -> List[Dict]:
-        assert contract_type.lower() in ['pair_factory', 'pair', 'token'], \
-            "contract_type should be in ['factory', 'pair', 'token']"
+        assert contract_type.lower() in ['pair_factory', 'pair', 'token', 'pool_factory'], \
+            "contract_type should be in ['factory', 'pair', 'token', 'pool_factory']"
 
         if contract_type.lower() == 'pair_factory':
             return [
@@ -116,6 +116,34 @@ class Contract:
                  "stateMutability": "view", "type": "function"},
             ]
 
+        if contract_type.lower() == 'pool_factory':
+            return [
+                {"inputs": [
+                    {"internalType": "address", "name": "", "type": "address"},
+                    {"internalType": "address", "name": "", "type": "address"},
+                    {"internalType": "uint24", "name": "", "type": "uint24"}
+                ], "name": "getPool", "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+                    "stateMutability": "view", "type": "function"}
+            ]
+
+    def get_pool_address(self, *args, **kwargs):
+        return asyncio.run(self.async_get_pool_address(*args, **kwargs))
+
+    async def async_get_pool_address(
+            self, factory_address: str,
+            token0: str,
+            token1: str,
+            fee_list: List[int] = None
+    ):
+        if not fee_list:
+            fee_list = [100, 300, 500, 1000]
+        factory_address = Web3.to_checksum_address(factory_address)
+        contract_functions = ETHContractFunctions(self.w3, factory_address, abi=self._get_abi('pool_factory'))
+
+        pool_addresses = await asyncio.gather(*[contract_functions.getPool(token0, token1, fee) for fee in fee_list])
+        return {fee: pool_address for fee, pool_address in zip(fee_list, pool_addresses)
+                if pool_address != "0x0000000000000000000000000000000000000000"}
+
     def get_token_info(self, *args, **kwargs) -> str:
         return asyncio.run(self.async_get_token_info(*args, **kwargs))
 
@@ -123,10 +151,10 @@ class Contract:
         contract_functions = ETHContractFunctions(self.w3, token_address, abi=self._get_abi('token'))
         return await contract_functions.name()
 
-    def get_pair_info(self, *args, **kwargs) -> dict:
-        return asyncio.run(self.async_get_pair_info(*args, **kwargs))
+    def get_lp_info(self, *args, **kwargs) -> dict:
+        return asyncio.run(self.async_get_lp_info(*args, **kwargs))
 
-    async def async_get_pair_info(self, pair_address):
+    async def async_get_lp_info(self, pair_address):
         contract_functions = ETHContractFunctions(self.w3, pair_address, abi=self._get_abi('pair'))
         pair_info = await asyncio.gather(contract_functions.name(), contract_functions.token0(),
                                          contract_functions.token1())
@@ -149,10 +177,11 @@ class Contract:
             raise ValueError("Either pair_factory_contract or pair_factory_address must be set")
 
         if not factory_contract:
+            factory_address = Web3.to_checksum_address(factory_address)
             factory_contract = ETHContractFunctions(self.w3, factory_address,
                                                     abi=self._get_abi('pair_factory'))
         pair_address = await factory_contract.allPairs(uint)
-        pair_info = await self.async_get_pair_info(pair_address)
+        pair_info = await self.async_get_lp_info(pair_address)
         token0, token1 = await asyncio.gather(self.async_get_token_info(pair_info["token0"]),
                                               self.async_get_token_info(pair_info["token1"]))
         return {
@@ -165,6 +194,7 @@ class Contract:
         }
 
     def get_pair_length(self, factory_address: str):
+        factory_address = Web3.to_checksum_address(factory_address)
         contract_functions = ETHContractFunctions(self.w3, factory_address, abi=self._get_abi('pair_factory'))
         return asyncio.run(contract_functions.allPairsLength())
 
@@ -172,6 +202,7 @@ class Contract:
         return asyncio.run(self.async_get_pairs(*args, **kwargs))
 
     async def async_get_pairs(self, factory_address: str = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", limit=5):
+        factory_address = Web3.to_checksum_address(factory_address)
         processor = AsyncBatchProcessor(limit=limit)
         contract_functions = ETHContractFunctions(self.w3, factory_address, abi=self._get_abi('pair_factory'))
         pairs_length = await contract_functions.allPairsLength()

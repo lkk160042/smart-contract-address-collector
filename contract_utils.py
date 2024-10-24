@@ -116,11 +116,17 @@ class Contract:
                  "stateMutability": "view", "type": "function"},
             ]
 
-    async def get_token_info(self, token_address):
+    def get_token_info(self, *args, **kwargs) -> str:
+        return asyncio.run(self.async_get_token_info(*args, **kwargs))
+
+    async def async_get_token_info(self, token_address):
         contract_functions = ETHContractFunctions(self.w3, token_address, abi=self._get_abi('token'))
         return await contract_functions.name()
 
-    async def get_pair_info(self, pair_address):
+    def get_pair_info(self, *args, **kwargs) -> dict:
+        return asyncio.run(self.async_get_pair_info(*args, **kwargs))
+
+    async def async_get_pair_info(self, pair_address):
         contract_functions = ETHContractFunctions(self.w3, pair_address, abi=self._get_abi('pair'))
         pair_info = await asyncio.gather(contract_functions.name(), contract_functions.token0(),
                                          contract_functions.token1())
@@ -130,11 +136,25 @@ class Contract:
             "token1": pair_info[2],
         }
 
-    async def get_pair_by_index(self, pair_factory_contract: ETHContractFunctions, uint: int):
-        pair_address = await pair_factory_contract.allPairs(uint)
-        pair_info = await self.get_pair_info(pair_address)
-        token0, token1 = await asyncio.gather(self.get_token_info(pair_info["token0"]),
-                                              self.get_token_info(pair_info["token1"]))
+    def get_pair_by_index(self, *args, **kwargs):
+        return asyncio.run(self.async_get_pair_by_index(*args, **kwargs))
+
+    async def async_get_pair_by_index(
+            self,
+            factory_contract: ETHContractFunctions = None,
+            uint: int = None,
+            factory_address: str = None
+    ):
+        if factory_contract is None and factory_address is None:
+            raise ValueError("Either pair_factory_contract or pair_factory_address must be set")
+
+        if not factory_contract:
+            factory_contract = ETHContractFunctions(self.w3, factory_address,
+                                                    abi=self._get_abi('pair_factory'))
+        pair_address = await factory_contract.allPairs(uint)
+        pair_info = await self.async_get_pair_info(pair_address)
+        token0, token1 = await asyncio.gather(self.async_get_token_info(pair_info["token0"]),
+                                              self.async_get_token_info(pair_info["token1"]))
         return {
             "pair_address": pair_address,
             "pair_name": pair_info["pair_name"],
@@ -144,12 +164,15 @@ class Contract:
             "token1_name": token1,
         }
 
-    async def get_pairs(self, pair_factory_address: str = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", limit=5):
+    def get_pairs(self, *args, **kwargs):
+        return asyncio.run(self.async_get_pairs(*args, **kwargs))
+
+    async def async_get_pairs(self, pair_factory_address: str = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", limit=5):
         processor = AsyncBatchProcessor(limit=limit)
         contract_functions = ETHContractFunctions(self.w3, pair_factory_address, abi=self._get_abi('pair_factory'))
         pairs_length = await contract_functions.allPairsLength()
         for i in range(pairs_length):
-            results = await processor.add_task(self.get_pair_by_index, contract_functions, i)
+            results = await processor.add_task(self.async_get_pair_by_index, contract_functions, i)
             if results:
                 self.result_df = self.result_df._append(self.to_dataframe(results), ignore_index=True)
                 print(f"{len(results)} done")
@@ -171,5 +194,5 @@ class Contract:
 
 if __name__ == '__main__':
     contract = Contract.from_url("https://mainnet.infura.io/v3/7fd65cf5f4e9453aa0259e639e7c1717")
-    asyncio.run(contract.get_pairs("0x1097053Fd2ea711dad45caCcc45EfF7548fCB362")) # Pancake Swap v2
+    asyncio.run(contract.async_get_pairs("0x1097053Fd2ea711dad45caCcc45EfF7548fCB362"))  # Pancake Swap v2
     contract.result_df.to_csv("PancakeSwap_v2.csv", index=False)

@@ -137,7 +137,7 @@ class Contract:
             filter_none: bool = False,
     ):
         if not fee_list:
-            fee_list = [100, 300, 500, 1000]
+            fee_list = [100, 500, 3000, 10000]
         factory_address = Web3.to_checksum_address(factory_address)
         contract_functions = ETHContractFunctions(self.w3, factory_address, abi=self._get_abi('pool_factory'))
 

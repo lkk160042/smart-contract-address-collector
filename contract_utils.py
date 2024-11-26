@@ -212,7 +212,7 @@ class Contract:
             results = await processor.add_task(self.async_get_pair_by_index, contract_functions, i)
             if results:
                 self.result_df = self.result_df._append(self.to_dataframe(results), ignore_index=True)
-                print(f"{len(results)} done")
+                # print(f"{len(results)} done")
         final_results = await processor.process_tasks()
         if final_results:
             self.result_df = self.result_df._append(self.to_dataframe(final_results), ignore_index=True)
